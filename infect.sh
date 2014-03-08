@@ -7,26 +7,6 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-if [ "$TARGET" == "dependencies" -o "$TARGET" == "all" ]; then
-   echo "=== RETRIEVING DEPENDENCIES ==="
-
-   command -v apt-get && INSTALL="apt-get install " && PKMN="apt"
-   command -v yum && INSTALL="yum -y install " && PKMN="yum"
-   command -v pacman && INSTALL="pacman -S " && PKMN="pacman"
-
-   while read line; do
-      args=($line)
-      pkg=${line[0]}
-      pkmn=${line[1]}
-
-      if [ -z "$pkmn" -o "$pkmn" == "$PKMN" ]; then
-         $INSTALL $pkg
-      fi
-   done < packages.list
-
-   echo
-fi
-
 if [ "$TARGET" == "all" ]; then
    echo "=== RETRIEVING SUBMODULES ==="
 
@@ -50,6 +30,26 @@ if [ "$TARGET" == "all" -o "$TARGET" == "special" ]; then
    echo
 fi
 
+
+if [ "$TARGET" == "dependencies" -o "$TARGET" == "all" ]; then
+   echo "=== RETRIEVING DEPENDENCIES ==="
+
+   command -v apt-get && INSTALL="apt-get install " && PKMN="apt"
+   command -v yum && INSTALL="yum -y install " && PKMN="yum"
+   command -v pacman && INSTALL="pacman -S " && PKMN="pacman"
+
+   while read line; do
+      args=($line)
+      pkg=${line[0]}
+      pkmn=${line[1]}
+
+      if [ -z "$pkmn" -o "$pkmn" == "$PKMN" ]; then
+         $INSTALL $pkg
+      fi
+   done < packages.list
+
+   echo
+fi
 if [ "$TARGET" == "all" -o "$TARGET" == "link" ]; then
    echo "=== LINKING DOTFILES ==="
 
