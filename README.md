@@ -54,4 +54,9 @@ ssh/config      ~/.ssh/
 The simplist of the bunch. Anything placed in the ```link``` directory will be recursively copied into the home directory and prefixed with a ```.```. Any files which already exist will be backed up in the ```.olddots``` directory.
 
 ## Example
+
 You can see my configuration [in my seperate dotfiles repo.](https://github.com/AndrewGuenther/dotfiles)
+
+## Acknowledgements
+
+@icco for persuading me to create a dotfiles repo in the first place.
