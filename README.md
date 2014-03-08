@@ -1,6 +1,6 @@
 # FirstFive
 
-As my dotfiles repo began to grow, I was inspired by Bryan Kennedy's post [My First 5 Minutes On A Server; Or, Essential Security for Linux Servers](http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers) to create a slightly more general solution for setting up a new system to my liking. Are there other tools to do this? Definitely, but I feel like this script is a nice bare minimum setup script that offers a good level of flexibility.
+As my dotfiles repo began to grow, I was inspired by Bryan Kennedy's post [My First 5 Minutes On A Server; Or, Essential Security for Linux Servers](http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers) and [@icco](https://github.com/icco) to create a slightly more general solution for setting up a new system to my liking. Are there other tools to do this? Definitely, but I feel like this script is a nice bare minimum setup script that offers a good level of flexibility.
 
 ## Features
 
@@ -60,4 +60,4 @@ You can see my configuration [in my seperate dotfiles repo.](https://github.com/
 
 ## Acknowledgements
 
-@icco for persuading me to create a dotfiles repo in the first place.
+[@icco](https://github.com/icco) and [his dotfile repo](https://github.com/icco/dotFiles) for persuading me to create a dotfiles repo in the first place.
