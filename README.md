@@ -40,13 +40,14 @@ wifi-radar pacman
 
 ### Specific
 
-If you wish to have a file copied to a specific location, just place it in the ```specific``` folder (or subfolder) and list it in the ```specific.list``` file. You can also use the ```$DIR``` variable to indicate the directory in which ```infect.sh``` is located. (This can be useful if you want to inject files into submodules after they are pulled)
+If you wish to have a file copied to a specific location, just place it in the ```specific``` folder (or subfolder) and list it in the ```specific.list``` file. You can also use the ```$DIR``` variable to indicate the directory in which ```infect.sh``` is located (This can be useful if you want to inject files into submodules after they are pulled). You can also add an "a" to the end of a line to indicate you wish for the file to be appended to rather than overwritten.
 
 Here's an example:
 ```
 my.zsh-theme    $DIR/link/oh-my-zsh/custom/
 ssh/id_rsa.pub  ~/.ssh/
 ssh/config      ~/.ssh/
+sources.list    /etc/apt/sources.list a
 ```
 
 ### Link

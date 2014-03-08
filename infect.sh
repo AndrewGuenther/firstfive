@@ -23,8 +23,13 @@ if [ "$TARGET" == "all" -o "$TARGET" == "special" ]; then
       args=($line)
       src=${args[0]}
       dest="$(eval echo ${args[1]})"
+      append=${args[2]}
       echo "$src -> $dest"
-      cp $DIR/specific/$src $dest
+      if [ "$append" == "a" ]; then
+         cat $DIR/specific/$src >> $dest
+      else
+         cp $DIR/specific/$src $dest
+      fi
    done < specific.list
 
    echo
