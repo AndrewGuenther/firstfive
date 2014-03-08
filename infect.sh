@@ -10,9 +10,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 if [ "$TARGET" == "dependencies" -o "$TARGET" == "all" ]; then
    echo "=== RETRIEVING DEPENDENCIES ==="
 
-   command -v apt-get && INSTALL="sudo apt-get install " && PKMN="apt"
-   command -v yum && INSTALL="sudo yum -y install " && PKMN="yum"
-   command -v pacman && INSTALL="sudo pacman -S " && PKMN="pacman"
+   command -v apt-get && INSTALL="apt-get install " && PKMN="apt"
+   command -v yum && INSTALL="yum -y install " && PKMN="yum"
+   command -v pacman && INSTALL="pacman -S " && PKMN="pacman"
 
    while read line; do
       args=($line)
