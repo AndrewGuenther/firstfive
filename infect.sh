@@ -39,7 +39,7 @@ fi
 if [ "$TARGET" == "dependencies" -o "$TARGET" == "all" ]; then
    echo "=== RETRIEVING DEPENDENCIES ==="
 
-   command -v apt-get && INSTALL="apt-get install " && PKMN="apt"
+   command -v apt-get && INSTALL="apt-get -y install " && PKMN="apt"
    command -v yum && INSTALL="yum -y install " && PKMN="yum"
    command -v pacman && INSTALL="pacman -S " && PKMN="pacman"
 
