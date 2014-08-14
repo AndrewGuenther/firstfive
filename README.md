@@ -1,6 +1,6 @@
 # FirstFive
 
-As my dotfiles repo began to grow, I was inspired by Bryan Kennedy's post [My First 5 Minutes On A Server; Or, Essential Security for Linux Servers](http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers) and [@icco](https://github.com/icco) to create a slightly more general solution for setting up a new system to my liking. Are there other tools to do this? Definitely, but I feel like this script is a nice bare minimum setup script that offers a good level of flexibility.
+As my dotfiles repo began to grow, I was inspired by Bryan Kennedy's post [My First 5 Minutes On A Server; Or, Essential Security for Linux Servers](http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers) and [@icco](https://github.com/icco) to create a slightly more general solution for setting up a new system to my liking. Are there other tools to do this? Definitely, but I feel like this script is a nice bare minimum setup script that offers a good enough level of flexibility.
 
 ## Features
 
@@ -17,13 +17,8 @@ As my dotfiles repo began to grow, I was inspired by Bryan Kennedy's post [My Fi
 ## Usage
 
 ```
-./infect.sh [all|packages|specific|link]
+curl -sSL https://raw.githubusercontent.com/AndrewGuenther/firstfive/master/infect.sh | bash -s <YOUR REPO>
 ```
-
-* **all**: Run all targets (if no target is specified, this is the default)
-* **packages**: Only install packages
-* **specific**: Only copy "specific" files
-* **link**: only link dotfiles
 
 ### Packages
 
