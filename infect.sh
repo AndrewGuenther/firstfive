@@ -1,84 +1,75 @@
 #!/bin/bash
 TARGET=$1
 
-if [ "$TARGET" == "" ]; then
-   TARGET="all"
-fi
+command -v apt-get && INSTALL="apt-get install " && PKMN="apt"
+command -v yum && INSTALL="yum -y install " && PKMN="yum"
+command -v pacman && INSTALL="pacman -S " && PKMN="pacman"
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+case "$TARGET" in
+   git://*|git@*|https://*)
+      $INSTALL git
+      git clone $TARGET firstfive
+      cd firstfive
+      ;;
+   *)
+      cd $TARGET
+      ;;
+esac
 
-if [ "$TARGET" == "all" ]; then
-   echo "=== RETRIEVING SUBMODULES ==="
-
+if [ $(ls .git | wc -l) ]; then
    git submodule init
    git submodule update
-
-   echo
 fi
 
-if [ "$TARGET" == "all" -o "$TARGET" == "special" ]; then
-   echo "=== COPYING SPECIFIC FILES ==="
+echo "=== COPYING SPECIFIC FILES ==="
 
-   while read line; do
-      args=($line)
-      src=${args[0]}
-      dest="$(eval echo ${args[1]})"
-      append=${args[2]}
-      echo "$src -> $dest"
-      if [ "$append" == "a" ]; then
-         cat $DIR/specific/$src >> $dest
-      else
-         cp $DIR/specific/$src $dest
-      fi
-   done < specific.list
-
-   echo
-fi
-
-
-if [ "$TARGET" == "dependencies" -o "$TARGET" == "all" ]; then
-   echo "=== RETRIEVING DEPENDENCIES ==="
-
-   command -v apt-get && INSTALL="apt-get -y install " && PKMN="apt"
-   command -v yum && INSTALL="yum -y install " && PKMN="yum"
-   command -v pacman && INSTALL="pacman -S " && PKMN="pacman"
-
-   while read line; do
-      args=($line)
-      pkg=${line[0]}
-      pkmn=${line[1]}
-
-      if [ -z "$pkmn" -o "$pkmn" == "$PKMN" ]; then
-         $INSTALL $pkg
-      fi
-   done < packages.list
-
-   echo
-fi
-if [ "$TARGET" == "all" -o "$TARGET" == "link" ]; then
-   echo "=== LINKING DOTFILES ==="
-
-   # Create a directory to put old dotfiles
-   if [ -d ~/.olddots ]; then
-      echo "FAIL: A dotfiles backup already exists! Aborting dotfiles copy."
+while read line; do
+   args=($line)
+   src=${args[0]}
+   dest="$(eval echo ${args[1]})"
+   append=${args[2]}
+   echo "$src -> $dest"
+   if [ "$append" == "a" ]; then
+      cat specific/$src >> $dest
    else
-      mkdir ~/.olddots
-
-      # Link dotfiles
-      for f in $DIR/link/*; do
-         if [ -f ~/.${f##*/} ]; then
-            cp ~/.${f##*/} ~/.olddots/.${f##*/}
-            rm ~/.${f##*/}
-         fi
-         echo "$f -> ~/.${f##*/}"
-         ln -s $f ~/.${f##*/}
-      done
+      cp specific/$src $dest
    fi
+done < specific.list
 
-   echo
+echo
+echo "=== RETRIEVING DEPENDENCIES ==="
+
+while read line; do
+   args=($line)
+   pkg=${line[0]}
+   pkmn=${line[1]}
+
+   if [ -z "$pkmn" -o "$pkmn" == "$PKMN" ]; then
+      $INSTALL $pkg
+   fi
+done < packages.list
+
+echo
+echo "=== LINKING DOTFILES ==="
+
+# Create a directory to put old dotfiles
+if [ -d ~/.olddots ]; then
+   echo "FAIL: A dotfiles backup already exists! Aborting dotfiles copy."
+else
+   mkdir ~/.olddots
+
+   # Link dotfiles
+   for f in link/*; do
+      if [ -f ~/.${f##*/} ]; then
+         cp ~/.${f##*/} ~/.olddots/.${f##*/}
+         rm ~/.${f##*/}
+      fi
+      echo "$f -> ~/.${f##*/}"
+      ln -s $f ~/.${f##*/}
+   done
 fi
 
-if [ "$TARGET" == "all" -a $DIR/custom.sh ]; then
-   echo "=== EXECUTING CUSTOM SCRIPT ==="
-   source $DIR/custom.sh
-fi
+echo
+echo "=== EXECUTING CUSTOM SCRIPT ==="
+
+source custom.sh
