@@ -1,0 +1,5 @@
+language: bash
+
+env: HOME=$TRAVIS_BUILD_DIR/test/sandbox
+
+script: make test-all
