@@ -1,7 +1,7 @@
 # FirstFive
 [![Build Status](https://travis-ci.org/AndrewGuenther/firstfive.svg?branch=master)](https://travis-ci.org/AndrewGuenther/firstfive)
 
-As my dotfiles repo began to grow, I was inspired by Bryan Kennedy's post [My First 5 Minutes On A Server; Or, Essential Security for Linux Servers](http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers) and [@icco](https://github.com/icco) to create a slightly more general solution for setting up a new system to my liking. Are there other tools to do this? Definitely, but I feel like this script is a nice bare minimum setup script that offers a good enough level of flexibility.
+As my dotfiles repo began to grow, I was inspired by wanting to automate the steps in Bryan Kennedy's post [My First 5 Minutes On A Server; Or, Essential Security for Linux Servers](http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers) and [@icco's dotfiles repo](https://github.com/icco) to create a slightly more general solution for setting up a new system to my liking. Are there other tools to do this? Definitely, but I feel like this script is a nice bare minimum setup script that offers a good enough level of flexibility.
 
 ## Features
 
@@ -9,6 +9,7 @@ As my dotfiles repo began to grow, I was inspired by Bryan Kennedy's post [My Fi
   * pacman
   * apt-get
   * yum
+  * brew
 * Symbolicly link dotfiles
   * Back up existing dotfiles
   * Automatically pull submodules
@@ -18,7 +19,7 @@ As my dotfiles repo began to grow, I was inspired by Bryan Kennedy's post [My Fi
 ## Usage
 
 ```
-curl -sSL https://raw.githubusercontent.com/AndrewGuenther/firstfive/master/infect.sh | bash -s <YOUR REPO>
+curl -sSL https://raw.githubusercontent.com/AndrewGuenther/firstfive/master/infect.sh | bash -s <YOUR REPO URL>
 ```
 
 ### Packages
@@ -36,11 +37,11 @@ wifi-radar pacman
 
 ### Specific
 
-If you wish to have a file copied to a specific location, just place it in the ```specific``` folder (or subfolder) and list it in the ```specific.list``` file. You can also use the ```$DIR``` variable to indicate the directory in which ```infect.sh``` is located (This can be useful if you want to inject files into submodules after they are pulled). You can also add an "a" to the end of a line to indicate you wish for the file to be appended to rather than overwritten.
+If you wish to have a file copied to a specific location, just place it in the ```specific``` folder (or subfolder) and list it in the ```specific.list``` file. You can also add an "a" to the end of a line to indicate you wish for the file to be appended to rather than overwritten.
 
 Here's an example:
 ```
-my.zsh-theme    $DIR/link/oh-my-zsh/custom/
+my.zsh-theme    link/oh-my-zsh/custom/
 ssh/id_rsa.pub  ~/.ssh/
 ssh/config      ~/.ssh/
 sources.list    /etc/apt/sources.list a
@@ -48,11 +49,11 @@ sources.list    /etc/apt/sources.list a
 
 ### Link
 
-The simplist of the bunch. Anything placed in the ```link``` directory will be recursively copied into the home directory and prefixed with a ```.```. Any files which already exist will be backed up in the ```.olddots``` directory.
+The simplist of the bunch. Anything placed in the ```link``` directory will be symlinked into the home directory and prefixed with a ```.```. Any files which already exist will be backed up in the ```.olddots``` directory. If a ```.olddots``` file still exists, this step will fail.
 
 ## Example
 
-You can see my configuration [in my seperate dotfiles repo.](https://github.com/AndrewGuenther/dotfiles)
+You can see a very simple example configuration which is used for integration testing [here.](https://github.com/AndrewGuenther/firstfive-example)
 
 ## Acknowledgements
 
