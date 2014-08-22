@@ -4,6 +4,7 @@ TARGET=$1
 command -v apt-get && INSTALL="apt-get install " && PKMN="apt"
 command -v yum && INSTALL="yum -y install " && PKMN="yum"
 command -v pacman && INSTALL="pacman -S " && PKMN="pacman"
+command -v brew && INSTALL="brew install " && PMMN="brew"
 
 case "$TARGET" in
    git://*|git@*|https://*)
