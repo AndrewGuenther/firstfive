@@ -2,6 +2,6 @@
 
 . test/assert.sh
 
-assert_raises "ls example/link/oh-my-zsh"
+assert_raises "ls firstfive/link/oh-my-zsh"
 
-assert_end custom
+assert_end submodule
