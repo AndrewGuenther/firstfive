@@ -17,11 +17,15 @@ case "$TARGET" in
       ;;
 esac
 
+echo
+echo "=== SYNCING SUBMODULES ==="
+
 if [ $(ls .git | wc -l) ]; then
    git submodule init
    git submodule update
 fi
 
+echo
 echo "=== COPYING SPECIFIC FILES ==="
 
 while read line; do
@@ -74,3 +78,6 @@ echo
 echo "=== EXECUTING CUSTOM SCRIPT ==="
 
 source custom.sh
+
+echo
+echo "=== SETUP COMPLETE! ==="
