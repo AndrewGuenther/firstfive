@@ -8,7 +8,10 @@ command -v brew && INSTALL="brew install " && PMMN="brew"
 
 case "$TARGET" in
    git://*|git@*|https://*)
-      $INSTALL git
+      if [ ! $(command -v git) ]; then
+         echo "=== INSTALLING GIT ==="
+         $INSTALL git
+      fi
       git clone $TARGET firstfive
       cd firstfive
       ;;
