@@ -4,9 +4,9 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
 
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
     <title>Firstfive by AndrewGuenther</title>
   </head>
@@ -31,7 +31,9 @@
         <h1>
 <a name="firstfive" class="anchor" href="#firstfive"><span class="octicon octicon-link"></span></a>FirstFive</h1>
 
-<p>As my dotfiles repo began to grow, I was inspired by Bryan Kennedy's post <a href="http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers">My First 5 Minutes On A Server; Or, Essential Security for Linux Servers</a> and <a href="https://github.com/icco">@icco</a> to create a slightly more general solution for setting up a new system to my liking. Are there other tools to do this? Definitely, but I feel like this script is a nice bare minimum setup script that offers a good level of flexibility.</p>
+<p><a href="https://travis-ci.org/AndrewGuenther/firstfive"><img src="https://travis-ci.org/AndrewGuenther/firstfive.svg?branch=master" alt="Build Status"></a></p>
+
+<p>As my dotfiles repo began to grow, I was inspired by wanting to automate the steps in Bryan Kennedy's post <a href="http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers">My First 5 Minutes On A Server; Or, Essential Security for Linux Servers</a> and <a href="https://github.com/icco">@icco's dotfiles repo</a> to create a slightly more general solution for setting up a new system to my liking. Are there other tools to do this? Definitely, but I feel like this script is a nice bare minimum setup script that offers a good enough level of flexibility.</p>
 
 <h2>
 <a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
@@ -43,6 +45,7 @@
 <li>pacman</li>
 <li>apt-get</li>
 <li>yum</li>
+<li>brew</li>
 </ul>
 </li>
 <li>Symbolicly link dotfiles
@@ -57,19 +60,10 @@
 </ul><h2>
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<pre><code>./infect.sh [all|packages|specific|link]
+<pre><code>curl -sSL https://raw.githubusercontent.com/AndrewGuenther/firstfive/master/infect.sh | bash -s &lt;YOUR REPO URL&gt;
 </code></pre>
 
-<ul>
-<li>
-<strong>all</strong>: Run all targets (if no target is specified, this is the default)</li>
-<li>
-<strong>packages</strong>: Only install packages</li>
-<li>
-<strong>specific</strong>: Only copy "specific" files</li>
-<li>
-<strong>link</strong>: only link dotfiles</li>
-</ul><h3>
+<h3>
 <a name="packages" class="anchor" href="#packages"><span class="octicon octicon-link"></span></a>Packages</h3>
 
 <p>Packages to be install should be specified in the <code>packages.list</code> file. If a specific package can only be found in a specific package manager, then that package manager can be specified after a space.</p>
@@ -86,11 +80,11 @@ wifi-radar pacman
 <h3>
 <a name="specific" class="anchor" href="#specific"><span class="octicon octicon-link"></span></a>Specific</h3>
 
-<p>If you wish to have a file copied to a specific location, just place it in the <code>specific</code> folder (or subfolder) and list it in the <code>specific.list</code> file. You can also use the <code>$DIR</code> variable to indicate the directory in which <code>infect.sh</code> is located (This can be useful if you want to inject files into submodules after they are pulled). You can also add an "a" to the end of a line to indicate you wish for the file to be appended to rather than overwritten.</p>
+<p>If you wish to have a file copied to a specific location, just place it in the <code>specific</code> folder (or subfolder) and list it in the <code>specific.list</code> file. You can also add an "a" to the end of a line to indicate you wish for the file to be appended to rather than overwritten.</p>
 
 <p>Here's an example:</p>
 
-<pre><code>my.zsh-theme    $DIR/link/oh-my-zsh/custom/
+<pre><code>my.zsh-theme    link/oh-my-zsh/custom/
 ssh/id_rsa.pub  ~/.ssh/
 ssh/config      ~/.ssh/
 sources.list    /etc/apt/sources.list a
@@ -99,12 +93,12 @@ sources.list    /etc/apt/sources.list a
 <h3>
 <a name="link" class="anchor" href="#link"><span class="octicon octicon-link"></span></a>Link</h3>
 
-<p>The simplist of the bunch. Anything placed in the <code>link</code> directory will be recursively copied into the home directory and prefixed with a <code>.</code>. Any files which already exist will be backed up in the <code>.olddots</code> directory.</p>
+<p>The simplist of the bunch. Anything placed in the <code>link</code> directory will be symlinked into the home directory and prefixed with a <code>.</code>. Any files which already exist will be backed up in the <code>.olddots</code> directory. If a <code>.olddots</code> file still exists, this step will fail.</p>
 
 <h2>
 <a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
 
-<p>You can see my configuration <a href="https://github.com/AndrewGuenther/dotfiles">in my seperate dotfiles repo.</a></p>
+<p>You can see a very simple example configuration which is used for integration testing <a href="https://github.com/AndrewGuenther/firstfive-example">here.</a></p>
 
 <h2>
 <a name="acknowledgements" class="anchor" href="#acknowledgements"><span class="octicon octicon-link"></span></a>Acknowledgements</h2>
