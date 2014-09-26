@@ -24,7 +24,8 @@ echo
 echo "=== SYNCING SUBMODULES ==="
 
 if [ $(ls .git | wc -l) ]; then
-   git submodule update --init --recursive
+   git submodule init
+   git submodule update --recursive
 fi
 
 echo
