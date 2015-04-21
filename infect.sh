@@ -72,8 +72,8 @@ else
          cp ~/.${f##*/} ~/.olddots/.${f##*/}
          rm ~/.${f##*/}
       fi
-      echo "$f -> ~/.${f##*/}"
-      ln -s $f ~/.${f##*/}
+      echo "$(pwd)/$f -> ~/.${f##*/}"
+      ln -s $(pwd)/$f ~/.${f##*/}
    done
 fi
 
