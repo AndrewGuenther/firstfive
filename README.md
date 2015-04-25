@@ -19,7 +19,7 @@ As my dotfiles repo began to grow, I was inspired by wanting to automate the ste
 ## Usage
 
 ```
-curl -sSL https://raw.githubusercontent.com/AndrewGuenther/firstfive/master/infect.sh | bash -s <YOUR REPO URL>
+curl -sSL http://git.io/vfPVm | bash -s <YOUR REPO URL>
 ```
 
 ### Packages
