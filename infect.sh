@@ -12,8 +12,8 @@ case "$TARGET" in
          echo "=== INSTALLING GIT ==="
          $INSTALL git
       fi
-      git clone $TARGET firstfive
-      cd firstfive
+      git clone $TARGET
+      cd $(basename $TARGET .git)
       ;;
    *)
       cd $TARGET
@@ -33,13 +33,14 @@ echo "=== COPYING SPECIFIC FILES ==="
 
 while read line; do
    args=($line)
-   src=${args[0]}
+   src=$(eval echo ${args[0]})
    dest="$(eval echo ${args[1]})"
    append=${args[2]}
    echo "$src -> $dest"
    if [ "$append" == "a" ]; then
       cat specific/$src >> $dest
    else
+      mkdir -p $(dirname $dest)
       cp specific/$src $dest
    fi
 done < specific.list
